@@ -40,10 +40,10 @@ public class TestEjemplo3 {
 	
 	public static void main(String[] args) {
 		// Generación de Listas
-//		PropiedadesListas props = PropiedadesListas.of(sizeMin, sizeMax, numSizes, minValue, maxValue,numListPerSize, numCasesPerList, rr);
-//		generaFicherosDatos(props);
-//		
-//		generaFicherosTiempoEjecucion();
+		PropiedadesListas props = PropiedadesListas.of(sizeMin, sizeMax, numSizes, minValue, maxValue,numListPerSize, numCasesPerList, rr);
+		generaFicherosDatos(props);
+		
+		generaFicherosTiempoEjecucion();
 		muestraGraficas();
 	}
 	

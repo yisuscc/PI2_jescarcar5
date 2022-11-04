@@ -20,7 +20,7 @@ import utils.TipoAjuste;
 public class TestEjemplo2 {
 	
 	public static void main(String[] args) {
-//		generaFicherosTiempoEjecucion();
+		generaFicherosTiempoEjecucion();
 		muestraGraficas();
 	}
 	
@@ -55,8 +55,8 @@ public class TestEjemplo2 {
 	private static <E> void generaFicherosTiempoEjecucionMetodos(List<Trio<Function<E, Number>, TipoAjuste, String>> metodos) {
 		
 		for (int i=0; i<metodos.size(); i++) { 
-			int numMax = nMaxIter;//i==0 ? nMaxRec : nMaxIter; 
-			Boolean flagExp = false; //i==0 ? true : false;
+			int numMax = i==0 ? nMaxRec : nMaxIter; 
+			Boolean flagExp = i==0 ? true : false;
 			
 			String ficheroSalida = String.format("ficheros/Tiempos%s.csv",
 					metodos.get(i).third());

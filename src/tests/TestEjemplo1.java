@@ -19,7 +19,7 @@ import utils.TipoAjuste;
 public class TestEjemplo1 {
 	
 	public static void main(String[] args) {
-		//generaFicherosTiempoEjecucion();
+		generaFicherosTiempoEjecucion();
 		muestraGraficas();
 	}
 	
