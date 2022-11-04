@@ -26,9 +26,9 @@ public class TestEjemplo1 {
 	private static Integer nMin = 50; // n mínimo para el cálculo de potencia
 	private static Integer nMax = 100000; // n máximo para el cálculo de potencia
 	private static Integer numSizes = 50; // número de problemas (número de potencias distintas a calcular)
-	private static Integer numMediciones = 10; // número de mediciones de tiempo de cada caso (número de experimentos)
-	private static Integer numIter = 50; // número de iteraciones para cada medición de tiempo
-	private static Integer numIterWarmup = 100000; // número de iteraciones para warmup
+	private static Integer numMediciones = 2; // número de mediciones de tiempo de cada caso (número de experimentos)
+	private static Integer numIter = 10; // número de iteraciones para cada medición de tiempo
+	private static Integer numIterWarmup = 100; // número de iteraciones para warmup
 	
 	// Trios de métodos a probar con su tipo de ajuste y etiqueta para el nombre de los ficheros
 	private static List<Trio<BiFunction<Double, Integer, Number>, TipoAjuste, String>> metodos = 

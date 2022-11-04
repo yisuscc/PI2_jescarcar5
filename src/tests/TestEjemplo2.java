@@ -25,14 +25,14 @@ public class TestEjemplo2 {
 	}
 	
 	private static Integer nMin = 2; // n mínimo
-	private static Integer nMaxRec = 50; // n máximo para el fibonacci recursivo sin memoria 
-	private static Integer nMaxIter = 100000; // n máximo para el fibonacci no exponencial
-	private static Integer numSizes = 30; // número de problemas
-	private static Integer numMediciones = 10; //10; // número de mediciones de tiempo de cada caso (número de experimentos)
+	private static Integer nMaxRec = 30; // n máximo para el fibonacci recursivo sin memoria 
+	private static Integer nMaxIter = 1000; // n máximo para el fibonacci no exponencial
+	private static Integer numSizes = 10; // número de problemas
+	private static Integer numMediciones = 2; //10; // número de mediciones de tiempo de cada caso (número de experimentos)
 												// para exponencial se puede reducir 
-	private static Integer numIter = 50; //50; // número de iteraciones para cada medición de tiempo
+	private static Integer numIter = 10; //50; // número de iteraciones para cada medición de tiempo
 											// para exponencial se puede reducir 
-	private static Integer numIterWarmup = 1000; // número de iteraciones para warmup
+	private static Integer numIterWarmup = 100; // número de iteraciones para warmup
 	
 	// Trios de métodos a probar con su tipo de ajuste y etiqueta para el nombre de los ficheros
 	private static List<Trio<Function<Integer, Number>, TipoAjuste, String>> metodosBigInteger = 
@@ -126,7 +126,7 @@ public class TestEjemplo2 {
 				Problema p = Problema.of(tam);
 				System.out.println(tam);
 				warmup(funcionFib, 10);
-				Integer nIter = flagExp ? numIter/(i+1) : numIter;
+				Integer nIter = flagExp ? 3 : numIter;
 				Number[] res = new Number[nIter];
 				Long t0 = System.nanoTime();
 				for (int z=0; z<nIter; z++) {

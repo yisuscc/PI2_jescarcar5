@@ -25,18 +25,18 @@ public class TestEjemplo3 {
 	
 	// Parámetros de generación de las listas
 	private static Integer sizeMin = 100; // tamaño mínimo de lista
-	private static Integer sizeMax = 100000; // tamaño máximo de lista
+	private static Integer sizeMax = 1000; // tamaño máximo de lista
 	private static Integer numSizes = 50; // número de tamaños de listas
 	private static Integer minValue = 0; 
-	private static Integer maxValue = 1000000;
+	private static Integer maxValue = 100000;
 	private static Integer numListPerSize = 1; // número de listas por cada tamaño  (UTIL???) 
 	private static Integer numCasesPerList = 30; // número de casos (elementos a buscar) por cada lista 
 	private static Random rr = new Random(System.nanoTime()); // para inicializarlo una sola vez y compartirlo con los métodos que lo requieran
 
 	// Parámetros de medición
-	private static Integer numMediciones = 5; // número de mediciones de tiempo de cada caso (número de experimentos)
+	private static Integer numMediciones = 3; // número de mediciones de tiempo de cada caso (número de experimentos)
 	private static Integer numIter = 50; // número de iteraciones para cada medición de tiempo
-	private static Integer numIterWarmup = 100000; // número de iteraciones para warmup
+	private static Integer numIterWarmup = 1000; // número de iteraciones para warmup
 	
 	public static void main(String[] args) {
 		// Generación de Listas
