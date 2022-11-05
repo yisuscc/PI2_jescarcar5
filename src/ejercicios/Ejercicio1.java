@@ -1,6 +1,10 @@
 package ejercicios;
 
 import java.math.BigInteger;
+import java.util.function.UnaryOperator;
+import java.util.stream.Stream;
+
+import us.lsi.common.Pair;
 
 public class Ejercicio1 {
 	
@@ -31,7 +35,15 @@ public class Ejercicio1 {
 	
 	// versión long funcional 
 	
-	
+	public static Long facFuncLong(Long n) {
+		UnaryOperator<Pair<Long, Long>> next = x -> {
+		Long m = x.first() +1;
+		Long ac = x.second()* m; 
+		return Pair.of(m, ac);
+		};
+		Pair<Long, Long> seed = Pair.of(0L, 1L);
+		return Stream.iterate(seed, next).dropWhile(y -> y.first()<n).findFirst().get().second();
+	}
 	
 	
 	// version double recursiva 
@@ -60,7 +72,15 @@ public class Ejercicio1 {
 	
 	// version double funcional 
 	
-	
+	public static Double facFuncDouble(Double n) {
+		UnaryOperator<Pair<Double, Double>> next = x -> {
+		Double m = x.first() +1;
+		Double ac = x.second()* m; 
+		return Pair.of(m, ac);
+		};
+		Pair<Double, Double> seed = Pair.of(0., 1.);
+		return Stream.iterate(seed, next).dropWhile(y -> y.first()<n).findFirst().get().second();
+	}
 	
 	
 	// version bigInt  recursiv
@@ -87,6 +107,15 @@ public class Ejercicio1 {
 	}
 	
 	// versión big int funcional 
+	public static BigInteger facFuncBigInteger(BigInteger n) {
+		UnaryOperator<Pair<BigInteger, BigInteger>> next = x -> {
+		BigInteger m = x.first().add(BigInteger.ONE);
+		BigInteger ac = x.second().multiply(m); 
+		return Pair.of(m, ac);
+		};
+		Pair<BigInteger, BigInteger> seed = Pair.of(BigInteger.ZERO,BigInteger.ONE);
+		return Stream.iterate(seed, next).dropWhile(y -> y.first().compareTo(n)<0).findFirst().get().second();
+	}
 
 	
 	
