@@ -10,7 +10,7 @@ public class Ejercicio1 {
 
 	
 	// version double recursiva 
-	public static Double facRdouble(Double n) {
+	public static Double facRdouble(Integer n) {
 		Double r = null;
 		if (n == 0 || n == 1) {
 			r =  (double) 1;
@@ -24,7 +24,7 @@ public class Ejercicio1 {
 	
 //	 version double iteratva
 	
-	public static Double facIterDouble(Double n) {
+	public static Double facIterDouble(Integer n) {
 		Double ac = (double) 1;
 		for(Double i = (double) 1;i<= n; i++ ) {
 			ac = ac*i;
@@ -36,30 +36,41 @@ public class Ejercicio1 {
 
 	
 	// version bigInt  recursiv
-	public static BigInteger facRBigInt(BigInteger n) {
+	public static BigInteger facRBigInteger(Integer n) {
 		BigInteger r = null;
-		if (n.equals(BigInteger.ZERO)|| n.equals(BigInteger.ONE)) {
+		if ( n == 1 ) {
 			r =  BigInteger.ONE;
 		}
 		else {
-			BigInteger u = facRBigInt(n.add(BigInteger.valueOf(-1)));
-			r =n.multiply(u);
+			
+			r = facRBigInteger(n-1).multiply(BigInteger.valueOf(n));
 		}
 		return r; 
 	}
 	
 	// versión big int   iterativa 
-	public static BigInteger facIterBigInt(BigInteger n) {
-		BigInteger ac = BigInteger.ONE;
-		for(BigInteger i  =  BigInteger.ONE;i.compareTo(n)<= 0; i.add(BigInteger.ONE) ) {
-			ac = ac.multiply(i);
-		}
-		return ac;
-		
+//	public static BigInteger facIterBigInt(Integer n) {
+//		BigInteger ac = BigInteger.ONE;
+//		for(BigInteger i  =  BigInteger.ONE;i.compareTo(n)<= 0; i.add(BigInteger.ONE) ) {
+//			ac = ac.multiply(i);
+//		}
+//		return ac;
+//		
+//	}
+    public static BigInteger facIterBigInteger(Integer N)
+    {
+        BigInteger f = new BigInteger("1");
+        for (int i = 2; i <= N; i++)
+            f = f.multiply(BigInteger.valueOf(i));
+        return f;
+    }
+	
+	public static void main(String[] args) {
+		System.out.println("Recursivo double" +facRdouble(14));
+		System.out.println("Iterativo double" +facIterDouble(14));
+		System.out.println("Iterativo Big Integer" +facIterBigInteger(14));
+		System.out.println("RecursivoBig Integer" +facRBigInteger(14));
 	}
-	
-
-	
 //	// verisón long recursiva
 //	
 //	public static Long facRLong(Long n) {

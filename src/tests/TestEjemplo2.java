@@ -126,7 +126,7 @@ public class TestEjemplo2 {
 				Problema p = Problema.of(tam);
 				System.out.println(tam);
 				warmup(funcionFib, 10);
-				Integer nIter = flagExp ? 3 : numIter;
+				Integer nIter = flagExp ? 5 : numIter;
 				Number[] res = new Number[nIter];
 				Long t0 = System.nanoTime();
 				for (int z=0; z<nIter; z++) {
