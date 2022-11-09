@@ -37,10 +37,10 @@ public class TestEj2 {
 	private static Integer numIterWarmup = 1000; // número de iteraciones para warmup
 	
 	
-//	// metodos a testear
-//	  List<Trio<Consumer<List<Integer>>, TipoAjuste, String>> metodos = List.of(
-//			//TODO
-//	);
+	// metodos a testear
+	  List<Trio<Consumer<List<Integer>>, TipoAjuste, String>> metodos = List.of(
+			//TODO
+	);
 
 	
 	// ubicación del fichero a utilizar
