@@ -84,19 +84,7 @@ public class Ejercicio3 {
 			break;
 		default: break;
 		}
-		/*
-		 * private static void cargaDatos() {
-	Consumer<String> cnsmr = x -> {
-		//String[] y = x.split("#");
-		BinaryTree<Integer> bt =  BinaryTreeImpl.parse(x,s-> Integer.parseInt(s));
-		//Pair<BinaryTree<Integer>,Integer> p = Pair.of(bt, Integer.parseInt(y[1]));
-		System.out.println(bt);
-		System.out.println(recursivo(bt));
-	};
-	Files2.streamFromFile("ficheros/PI3E5_DatosEntrada.txt").forEach(cnsmr);
-}
-		 * 
-		 * */
+	
 		
 		 
 
@@ -121,7 +109,7 @@ public class Ejercicio3 {
 			System.out.println("Caracter: " +y[1]);
 			System.out.println(caminosSinCaracterNArio(bt, y[1].charAt(0)));
 		};
-		Files2.streamFromFile("ficheros/Ejercicio3DatosEntradaBinario.txt").forEach(cnsmr);
+		Files2.streamFromFile("ficheros/Ejercicio3DatosEntradaNario.txt").forEach(cnsmr);
 	}
 
 	public static void main(String[] args) {
