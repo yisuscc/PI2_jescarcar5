@@ -10,7 +10,7 @@ import us.lsi.common.List2;
 import us.lsi.common.Preconditions;
 import us.lsi.math.Math2;
 
-public class Ejercicio2A {
+public class Ejercicio2 {
 	public static void  quickSortMT(List<Integer> ls ,Integer um ) {
 		Comparator<Integer> ord =  Comparator.naturalOrder() ;
 		Integer i = 0;
@@ -65,7 +65,7 @@ public class Ejercicio2A {
 			ls.add(Integer.parseInt(e[i]));
 		System.out.println("Lista. "+ ls);
 		System.out.println("¿Esta ordenada?:" + List2.isOrdered(ls));
-		quickSortMT(ls,100);
+		quickSortMT(ls,2);
 		System.out.println("¿Y ahora?:" + List2.isOrdered(ls));
 		System.out.println(ls);
 		}

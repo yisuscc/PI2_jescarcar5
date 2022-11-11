@@ -198,7 +198,7 @@ public class TestEjemplo3 {
 					List<String> lse = List2.parse(lineaElem, "#", Function.identity());
 					Integer elem = Integer.parseInt(lse.get(1)); 
 					Problema p = Problema.of(tam, i%numListPerSize, j);
-					warmup(busca, lineasListas.get(0), lineasElem.get(0));
+					//warmup(busca, lineasListas.get(0), lineasElem.get(0));
 					Integer[] res = new Integer[numIter];
 					Long t0 = System.nanoTime();
 					for (int z=0; z<numIter; z++) {
