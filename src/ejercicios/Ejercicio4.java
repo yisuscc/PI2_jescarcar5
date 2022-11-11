@@ -1,6 +1,7 @@
 package ejercicios;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import us.lsi.common.Files2;
 import us.lsi.common.String2;
@@ -54,13 +55,16 @@ public class Ejercicio4 {
 		case TEmpty<String> t: break; // rompemos directamente
 		case TLeaf<String> t: break; // rompemos directamente
 		case TNary<String> t: 
-
+			//Function<Tree<String>, Integer> sumaVocal = a->{
+			//	a.elements().stream().map(e -> cuentavocales());
+			//};
 		//probar con stream2.allequals 
-			if(t.elements().stream().map(e->cuentavocales(e.optionalLabel().
-					orElseGet(()-> ""))).distinct().count()==1) {
-				res = Stream2.allEquals(t.elements().stream().map(a-> casoRecursivoNario(a, true)));
+		//	if(t.elements().stream().map(e->cuentavocales(e.optionalLabel().get())).distinct().count()==1) {
+			if(res)	{
+			res = Stream2.allEquals(t.elements().stream().map(a-> casoRecursivoNario(a, true)));
 			}
-			else res = false;
+		//	}
+			
 			
 			break; // solo se comparan los hijos
 			

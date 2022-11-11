@@ -48,7 +48,7 @@ public class TestEj2 {
 	  //creacion de los ficheros de datos
 
 		public static void generaFicherosDatos(PropiedadesListas p) {
-			Resultados.cleanFile("ficheros/Listasej3.txt"); // crea un file txt que se llama así 
+			Resultados.cleanFile("ficheros/Listasej2.txt"); // crea un file txt que se llama así 
 			// crea un version alternativa del crea listas enteros
 			generaFicheroListasEnterosV1("ficheros/Listasej3.txt", p);
 			
