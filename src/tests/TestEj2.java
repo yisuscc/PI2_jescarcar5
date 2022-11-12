@@ -6,12 +6,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import ejercicios.Ejercicio2;
 import tests.TestEjemplo3.Problema;
+import tests.TestEjemplo3.TResult;
+import tests.TestEjemplo3.TResultD;
+import tests.TestEjemplo3.TResultMedD;
 import us.lsi.common.Files2;
 import us.lsi.common.List2;
 import us.lsi.common.Pair;
@@ -28,11 +32,13 @@ import utils.FicherosListas.PropiedadesListas;
 public class TestEj2 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
 		// generamos los datos a usar
 		PropiedadesListas props = PropiedadesListas.of(sizeMin, sizeMax, numSizes, minValue, maxValue, numListPerSize,
-				numCasesPerList, rr);
+			numCasesPerList, rr);
 		generaFicherosDatos(props);
+		generaFicherosTiempoEjecucion();
+		muestraGraficas();
 	}
 
 	// boilerplate
@@ -42,7 +48,7 @@ public class TestEj2 {
 	private static Integer minValue = 0;
 	private static Integer maxValue = 100000;
 	private static Integer numListPerSize = 1; // número de listas por cada tamaño (UTIL???)
-	private static Integer numCasesPerList = 30; // número de casos (elementos a buscar) por cada lista
+	private static Integer numCasesPerList = 1; // número de casos (elementos a buscar) por cada lista
 	private static Random rr = new Random(System.nanoTime()); // para inicializarlo una sola vez y compartirlo con los
 																// métodos que lo requieran
 
@@ -70,7 +76,7 @@ public class TestEj2 {
 		List<String> labels = new ArrayList<>();
 		
 		for (Integer i=0; i<etiquetasMetodos.size(); i++) { 
-			String ficheroMediosSalida = String.format("ficheros/TiemposMed%s.csv",etiquetasMetodos.get(i));
+			String ficheroMediosSalida = String.format("ficheros/Tiempos%s.csv",etiquetasMetodos.get(i));
 			String label = etiquetasMetodos.get(i);
 			TipoAjuste tipoAjuste = TipoAjuste.NLOGN_0;
 			GraficosAjuste.show(ficheroMediosSalida, tipoAjuste, label);
@@ -99,12 +105,11 @@ public class TestEj2 {
 					ficheroMediosSalida);
 		}
 	}
-	// ubicación del fichero a utilizar
-	//
+	
 	// creacion de los ficheros de datos
 
-	private static void testTiemposEjecucionQuickSort(String ficheroListas, Integer integer,
-			BiConsumer<List<Integer>, Integer> biConsumer, String ficheroSalida, String ficheroMediosSalida) {
+	private static void testTiemposEjecucionQuickSort(String ficheroListas, Integer umbral,
+			BiConsumer<List<Integer>, Integer> quicksort, String ficheroSalida, String ficheroMediosSalida) {
 		Map<Problema, Double> tiempos = new HashMap<Problema,Double>();
 		Map<Integer, Double> tiemposMedios; // tiempos medios por cada tamaño
 		List<String> lineasListas = Files2.linesFromFile(ficheroListas);
@@ -116,15 +121,48 @@ public class TestEj2 {
 				String []lineaLista = lineasListas.get(i).split(",");
 				List<Integer> ls = List2.parse(lineaLista, t-> Integer.parseInt(t));
 				Integer tam = ls.size();
-				for (int j=0; j<numCasesPerList; j++) {
+				
 //					String lineaElem = lineasElem.get(i*numCasesPerList+j);
 //					List<String> lse = List2.parse(lineaElem, "#", Function.identity());
-					Problema p = Problema.of(tam, i%numListPerSize, j);
-					//TODO Termina esa mierda 
-				}
+					Problema p = Problema.of(tam, i%1, 1);
+					warmup(quicksort, ls, umbral);
+					
+					Long t0 = System.nanoTime();
+					for (int z=0; z<numIter; z++) {
+						quicksort.accept(ls, umbral);
+					}
+					Long t1 = System.nanoTime();
+					actualizaTiempos(tiempos, p, Double.valueOf(t1-t0)/numIter);
+				
 			}
 		}
+		tiemposMedios = tiempos.entrySet().stream()
+				.collect(Collectors.groupingBy(x->x.getKey().tam(),
+							Collectors.averagingDouble(x->x.getValue())
+							)
+						);
+		Resultados.toFile(tiemposMedios.entrySet().stream()
+				.map(x->TResultMedD.of(x.getKey(),x.getValue()))
+				.map(TResultMedD::toString),
+			ficheroMediosSalida,
+			true);
 		
+	}
+
+	private static void actualizaTiempos(Map<Problema, Double> tiempos, Problema p, double d) {
+	
+		if (!tiempos.containsKey(p)) {
+			tiempos.put(p, d);
+		} else if (tiempos.get(p) > d) {
+				tiempos.put(p, d);
+		}
+		
+	}
+	private static void warmup(BiConsumer<List<Integer>, Integer> busca, List<Integer> ls, Integer umbral) {
+		for (int i=0; i<numIterWarmup; i++) {
+			busca.accept(ls, umbral);
+		}
+	
 	}
 
 	public static void generaFicherosDatos(PropiedadesListas p) {
@@ -144,5 +182,43 @@ public class TestEj2 {
 			}
 		}
 	}
+	
+	record TResult(Integer tam, Integer numList, Integer numCase, Long t) {
+		public static TResult of(Integer tam, Integer numList, Integer numCase, Long t){
+			return new TResult(tam, numList, numCase, t);
+		}
+		
+		public String toString() {
+			return String.format("%d,%d,%d,%d", tam, numList, numCase, t);
+		}
+	}
+	
+	record TResultD(Integer tam, Integer numList, Integer numCase, Double t) {
+		public static TResultD of(Integer tam, Integer numList, Integer numCase, Double t){
+			return new TResultD(tam, numList, numCase, t);
+		}
+		
+		public String toString() {
+			return String.format("%d,%d,%d,%.0f", tam, numList, numCase, t);
+		}
+	}
+	
+	record TResultMedD(Integer tam, Double t) {
+		public static TResultMedD of(Integer tam, Double t){
+			return new TResultMedD(tam, t);
+		}
+		
+		public String toString() {
+			return String.format("%d,%.0f", tam, t);
+		}
+	}
+	
+	
+	record Problema(Integer tam, Integer numList, Integer numCase) {
+		public static Problema of(Integer tam, Integer numList, Integer numCase){
+			return new Problema(tam, numList, numCase);
+		}
+	}
+	
 
 }
