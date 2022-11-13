@@ -4,7 +4,9 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import us.lsi.common.Files2;
+import us.lsi.common.Pair;
 import us.lsi.common.String2;
+import us.lsi.common.Trio;
 import us.lsi.streams.Stream2;
 import us.lsi.tiposrecursivos.BinaryTree;
 import us.lsi.tiposrecursivos.BinaryTree.BEmpty;
@@ -44,6 +46,12 @@ public class Ejercicio4 {
 		}
 		return res;
 	}
+	private static Pair<Integer,Boolean>casoRecursivoBinarioV2(BinaryTree<String> bt) {
+		Pair<Integer,Boolean> res;
+		switch(bt) {
+		case case BEmpty<String> t:
+		}
+	}
 
 	public static Boolean ej4NarioV1(Tree<String> nt) {
 		return casoRecursivoNarioV1(nt);
@@ -71,6 +79,32 @@ public class Ejercicio4 {
 		}
 		return res;
 
+	}
+	public static Boolean ej4NarioV2(Tree<String> nt) {
+		return casoRecursivoNarioV2(nt).second();
+	}
+	private static Pair<Integer, Boolean> casoRecursivoNarioV2(Tree<String> nt){
+		// creo que consw expressions se simplifica mas
+		// pero acosumbro a utilizar statements
+		Pair<Integer, Boolean> aux;
+		switch(nt) {
+		case TEmpty<String> t: aux= Pair.of(0, true); break;
+		case TLeaf<String> t : aux = 
+				Pair.of(cuentavocales(t.label()), true);
+		break;
+		case TNary<String> t: 
+			// seguramente se pueda hacer con stream
+			//se puede hacer con for y es mucho mas legible
+			// pero queria practicar con stream
+		 aux= t.elements().stream().
+		mapToInt(a->casoRecursivoNarioV2(a).first()).
+		mapToObj(i -> Trio.of(i, i, true)).
+		reduce((q,w)-> Trio.of(q.first(),q.second()+w.second(),
+				q.first().equals(w.first()))).
+		map(e->Pair.of(e.second(),e.third())).get();
+			break;
+		}
+		return aux;
 	}
 
 	private static Integer nVocalesBT(BinaryTree<String> tree) {
@@ -141,13 +175,13 @@ public class Ejercicio4 {
 
 			System.out.println("Arbol: " + bt);
 			System.out.println("N vocales" + nVocales(bt));
-			System.out.println(ej4NarioV1(bt));
+			System.out.println(ej4NarioV2(bt));
 		};
 		Files2.streamFromFile("ficheros/Ejercicio4DatosEntradaNario.txt").forEach(cnsmr);
 	}
 
 	public static void main(String[] args) {
-		cargaDatosBT();
+		//cargaDatosBT();
 		cargaDatosNario();
 
 	}
