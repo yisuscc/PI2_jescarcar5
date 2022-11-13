@@ -67,19 +67,18 @@ public class TestEj2INSertionSort {
 			// TODO
 			Ejercicio2InsertionSort::quickSortInsSort ;// versión normal
 		
-	 private static List<String> etiquetasMetodos = List.of("QSISUmbral4", "QSISumbral2",
-			"QSISUmbral8", "QSISUmbralRandom");
-	private static List<String> ficheroListaEntrada = List.of(ubiFichero);
+	 private static String etiquetasMetodos = "QSISUmbral";
+	private static String ficheroListaEntrada = ubiFichero;
 	private static List<Integer> umbrales = List.of(4,2,8,rInt);
 	
 	public static void muestraGraficas() {
 		List<String> ficherosSalida = new ArrayList<>();
 		List<String> labels = new ArrayList<>();
 		
-		for (Integer i=0; i<etiquetasMetodos.size(); i++) { 
-			String ficheroMediosSalida = String.format("ficheros/Tiempos%s.csv",etiquetasMetodos.get(i));
-			String label = etiquetasMetodos.get(i);
-//			TipoAjuste tipoAjuste = TipoAjuste.NLOGN_0;
+		for (Integer i=0; i<umbrales.size(); i++) { 
+			String ficheroMediosSalida = String.format("ficheros/Tiempos%s.csv",etiquetasMetodos+umbrales.get(i));
+			String label = etiquetasMetodos+umbrales.get(i);
+			//TipoAjuste tipoAjuste = TipoAjuste.NLOGN_0;
 			// cuanto mas grande sea el umbral mas exponencia será 
 			TipoAjuste tipoAjuste = i==3?TipoAjuste.EXP2_0:TipoAjuste.NLOGN_0;
 			GraficosAjuste.show(ficheroMediosSalida, tipoAjuste, label);
@@ -97,10 +96,10 @@ public class TestEj2INSertionSort {
 	}
 	
 	public static void generaFicherosTiempoEjecucion() {
-		for(Integer i= 0 ; i<etiquetasMetodos.size(); i++) {
-			String ficheroSalida = String.format("ficheros/Tiempos%s.csv",etiquetasMetodos.get(i));
+		for(Integer i= 0 ; i<umbrales.size(); i++) {
+			String ficheroSalida = String.format("ficheros/Tiempos%s.csv",etiquetasMetodos+umbrales.get(i));
 			System.out.println(ficheroSalida);
-			String ficheroMediosSalida = String.format("ficheros/Tiempos%s.csv",etiquetasMetodos.get(i));
+			String ficheroMediosSalida = String.format("ficheros/Tiempos%s.csv",etiquetasMetodos+umbrales.get(i));
 			testTiemposEjecucionQuickSort(ubiFichero,
 					umbrales.get(i),
 					metodo, //TODO Modificar para que corresponda con la  i

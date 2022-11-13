@@ -63,23 +63,20 @@ public class TestEj2MiguelToro {
 	
 
 	// metodos a testear
-	 private static List<BiConsumer<List<Integer>, Integer>> metodos = List.of(
-			// TODO
-			Ejercicio2MiguelToro::quickSortMT // versión normal
-			
-			);
-	 private static List<String> etiquetasMetodos = List.of("QSMTUmbral4", "QSMTumbral2",
-			"QSMtUmbral8", "QSMTUmbralRandom");
-	private static List<String> ficheroListaEntrada = List.of("ficheros/Listasej2.txt");
+	 private static BiConsumer<List<Integer>,Integer>metodo = 
+	
+			Ejercicio2MiguelToro::quickSortMT ;// versión normal
+	 private static String etiquetasMetodos = "QSMTUmbral";
+	private static String ficheroListaEntrada = "ficheros/Listasej2.txt";
 	private static List<Integer> umbrales = List.of(4,2,8,rInt);
 	
 	public static void muestraGraficas() {
 		List<String> ficherosSalida = new ArrayList<>();
 		List<String> labels = new ArrayList<>();
 		
-		for (Integer i=0; i<etiquetasMetodos.size(); i++) { 
-			String ficheroMediosSalida = String.format("ficheros/Tiempos%s.csv",etiquetasMetodos.get(i));
-			String label = etiquetasMetodos.get(i);
+		for (Integer i=0; i<umbrales.size(); i++) { 
+			String ficheroMediosSalida = String.format("ficheros/Tiempos%s.csv",etiquetasMetodos+umbrales.get(i));
+			String label = etiquetasMetodos+ umbrales.get(i).toString();
 			//TipoAjuste tipoAjuste = TipoAjuste.NLOGN_0;
 
 			// cuanto mas grande sea el umbral mas exponencia será 
@@ -99,13 +96,13 @@ public class TestEj2MiguelToro {
 	}
 	
 	public static void generaFicherosTiempoEjecucion() {
-		for(Integer i= 0 ; i<etiquetasMetodos.size(); i++) {
-			String ficheroSalida = String.format("ficheros/Tiempos%s.csv",etiquetasMetodos.get(i));
+		for(Integer i= 0 ; i<umbrales.size(); i++) {
+			String ficheroSalida = String.format("ficheros/Tiempos%s.csv",etiquetasMetodos+umbrales.get(i));
 			System.out.println(ficheroSalida);
-			String ficheroMediosSalida = String.format("ficheros/Tiempos%s.csv",etiquetasMetodos.get(i));
-			testTiemposEjecucionQuickSort(ficheroListaEntrada.get(0),
+			String ficheroMediosSalida = String.format("ficheros/Tiempos%s.csv",etiquetasMetodos+umbrales.get(i));
+			testTiemposEjecucionQuickSort(ficheroListaEntrada,
 					umbrales.get(i),
-					metodos.get(0), //TODO Modificar para que corresponda con la  i
+					metodo,
 					ficheroSalida,
 					ficheroMediosSalida);
 		}
@@ -171,9 +168,9 @@ public class TestEj2MiguelToro {
 	}
 
 	public static void generaFicherosDatos(PropiedadesListas p) {
-		Resultados.cleanFile("ficheros/Listasej2.txt"); // crea un file txt que se llama así
+		Resultados.cleanFile(ficheroListaEntrada); // crea un file txt que se llama así
 		// crea un version alternativa del crea listas enteros
-		generaFicheroListasEnterosV1("ficheros/Listasej2.txt", p);
+		generaFicheroListasEnterosV1(ficheroListaEntrada, p);
 
 	}
 
