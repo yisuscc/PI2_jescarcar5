@@ -20,7 +20,8 @@ import us.lsi.tiposrecursivos.Tree.TNary;
 public class Ejercicio4 {
 
 	public static Boolean ej4BinarioV1(BinaryTree<String> bt) {
-		//		version buena
+		//		version mala
+		// la buena es la v2
 		return casoRecursivoBtV1(bt, true);
 
 	}
@@ -46,19 +47,37 @@ public class Ejercicio4 {
 		}
 		return res;
 	}
+	public static Boolean ej4BinarioV2(BinaryTree<String> bt) {
+		// versión buena
+		return casoRecursivoBinarioV2(bt).second();
+	}
 	private static Pair<Integer,Boolean>casoRecursivoBinarioV2(BinaryTree<String> bt) {
-		Pair<Integer,Boolean> res;
+		Pair<Integer,Boolean> res = Pair.of(0, true);
 		switch(bt) {
-		case case BEmpty<String> t:
+		 case BEmpty<String> t: 
+		 break;
+		 case BLeaf<String> t: res =  Pair.of(cuentavocales(t.label()), true);
+		 break;
+		 case BTree<String> t: 
+			 Integer l = casoRecursivoBinarioV2(t.left()).first();
+		 	Integer r = casoRecursivoBinarioV2(t.right()).first();
+		 	res = Pair.of(l+r, l==r);
+		 	break;
+		
 		}
+		return res;
 	}
 
 	public static Boolean ej4NarioV1(Tree<String> nt) {
+		//		version mala
+		// la buena es la v2
 		return casoRecursivoNarioV1(nt);
 
 	}
 
 	private static Boolean casoRecursivoNarioV1(Tree<String> nt) {
+		//		version mala
+		// la buena es la v2
 		Boolean res = true;
 		switch (nt) {
 		case TEmpty<String> t:
@@ -81,6 +100,7 @@ public class Ejercicio4 {
 
 	}
 	public static Boolean ej4NarioV2(Tree<String> nt) {
+		//versión buena
 		return casoRecursivoNarioV2(nt).second();
 	}
 	private static Pair<Integer, Boolean> casoRecursivoNarioV2(Tree<String> nt){
@@ -100,7 +120,7 @@ public class Ejercicio4 {
 		mapToInt(a->casoRecursivoNarioV2(a).first()).
 		mapToObj(i -> Trio.of(i, i, true)).
 		reduce((q,w)-> Trio.of(q.first(),q.second()+w.second(),
-				q.first().equals(w.first()))).
+				q.first().equals(w.first())&&q.third()&&w.third())).
 		map(e->Pair.of(e.second(),e.third())).get();
 			break;
 		}
@@ -163,7 +183,7 @@ public class Ejercicio4 {
 
 			System.out.println("Arbol: " + bt);
 
-			System.out.println(ej4BinarioV1(bt));
+			System.out.println(ej4BinarioV2(bt));
 		};
 		Files2.streamFromFile("ficheros/Ejercicio4DatosEntradaBinario.txt").forEach(cnsmr);
 	}
@@ -181,8 +201,8 @@ public class Ejercicio4 {
 	}
 
 	public static void main(String[] args) {
-		//cargaDatosBT();
-		cargaDatosNario();
+		cargaDatosBT();
+		//cargaDatosNario();
 
 	}
 

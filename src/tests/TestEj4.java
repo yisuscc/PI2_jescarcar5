@@ -15,9 +15,12 @@ public class TestEj4 {
 			BinaryTree<String> bt = BinaryTree.parse(x);
 
 			System.out.println("Arbol: " + bt);
-
+			System.out.println("Versión 1(no es tan eficiente)");
 			System.out.println(Ejercicio4.ej4BinarioV1(bt));
+			System.out.println("Versión2 (es mas eficiente)" );
+			System.out.println(Ejercicio4.ej4BinarioV2(bt));
 		};
+		System.out.println("----ARboles BInarios----");
 		Files2.streamFromFile("ficheros/Ejercicio4DatosEntradaBinario.txt").forEach(cnsmr);
 	}
 
@@ -27,9 +30,12 @@ public class TestEj4 {
 			Tree<String> bt = Tree.parse(x);
 
 			System.out.println("Arbol: " + bt);
-			
+			System.out.println("Versión 1(no es tan eficiente)");
 			System.out.println(Ejercicio4.ej4NarioV1(bt));
+			System.out.println("Versión2 (es mas eficiente)" );
+			System.out.println(Ejercicio4.ej4NarioV2(bt));
 		};
+		System.out.println("---Arboles narios---");
 		Files2.streamFromFile("ficheros/Ejercicio4DatosEntradaNario.txt").forEach(cnsmr);
 	}
 
