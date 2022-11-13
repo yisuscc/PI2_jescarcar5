@@ -11,7 +11,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import ejercicios.Ejercicio2;
+import ejercicios.Ejercicio2InsertionSort;
+import ejercicios.Ejercicio2MiguelToro;
 import tests.TestEjemplo3.Problema;
 import tests.TestEjemplo3.TResult;
 import tests.TestEjemplo3.TResultD;
@@ -29,7 +30,7 @@ import utils.Resultados;
 import utils.TipoAjuste;
 import utils.FicherosListas.PropiedadesListas;
 
-public class TestEj2 {
+public class TestEj2MiguelToro {
 
 	public static void main(String[] args) {
 
@@ -56,15 +57,16 @@ public class TestEj2 {
 	private static Integer numIter = 50; // número de iteraciones para cada medición de tiempo
 	private static Integer numIterWarmup = 1000; // número de iteraciones para warmup
 	// otras random
-	private static Integer rMin = 5;
-	private static Integer rMax = 500;
+	private static Integer rMin = 200;
+	private static Integer rMax = 1500;
 	private static Integer rInt = Math2.getEnteroAleatorio(rMin, rMax);
 	
 
 	// metodos a testear
 	 private static List<BiConsumer<List<Integer>, Integer>> metodos = List.of(
 			// TODO
-			Ejercicio2::quickSortMT // versión normal
+			Ejercicio2MiguelToro::quickSortMT // versión normal
+			
 			);
 	 private static List<String> etiquetasMetodos = List.of("QSMTUmbral4", "QSMTumbral2",
 			"QSMtUmbral8", "QSMTUmbralRandom");
@@ -78,7 +80,10 @@ public class TestEj2 {
 		for (Integer i=0; i<etiquetasMetodos.size(); i++) { 
 			String ficheroMediosSalida = String.format("ficheros/Tiempos%s.csv",etiquetasMetodos.get(i));
 			String label = etiquetasMetodos.get(i);
-			TipoAjuste tipoAjuste = TipoAjuste.NLOGN_0;
+			//TipoAjuste tipoAjuste = TipoAjuste.NLOGN_0;
+
+			// cuanto mas grande sea el umbral mas exponencia será 
+			TipoAjuste tipoAjuste = i==3?TipoAjuste.EXP2_0:TipoAjuste.NLOGN_0;
 			GraficosAjuste.show(ficheroMediosSalida, tipoAjuste, label);
 			Pair<Function<Double, Double>, String> parCurve = GraficosAjuste.fitCurve(
 					DataCurveFitting.points(ficheroMediosSalida), tipoAjuste);

@@ -18,7 +18,7 @@ import us.lsi.tiposrecursivos.Tree.TNary;
 import us.lsi.tiposrecursivos.parsers.BinaryTreeParser;
 
 public class Ejercicio3 {
-	public static List<String>caminosSinCaracterNArio(Tree<Character> arbol, Character K){
+	public static List<String> caminosSinCaracterNArio(Tree<Character> arbol, Character K) {
 		List<String> res = new ArrayList<>();
 		casoRecursivo(arbol, K, "", res);
 		return res;
@@ -34,32 +34,31 @@ public class Ejercicio3 {
 		case TEmpty<Character> t:
 			break;
 
-//			caso hoja: comprobamos que si etiqueta no sea la letrea y slo mentemos en la cadena y la cadena en la lista
+		//			caso hoja: comprobamos que si etiqueta no sea la letrea y slo mentemos en la cadena y la cadena en la lista
 		case TLeaf<Character> t:
 			if (!t.label().equals(K)) {
 				ac = ac + t.label();
 				res.add(ac);
 			}
-			;
-			break;
+		;
+		break;
 
 		case TNary<Character> t:
 			if (!t.label().equals(K)) {
 				ac = ac + t.label();
-//			con stream no sale :(
+				//			con stream no sale :(
 				for (Tree<Character> a : t.elements()) {
 					casoRecursivo(a, K, ac, res);
 				}
 			}
-			break;
+		break;
 		default:
 			break;
 		}
 
-		
-
 	}
-	public static List<String>caminosSinCaracterBinario(BinaryTree<Character> arbol, Character K){
+
+	public static List<String> caminosSinCaracterBinario(BinaryTree<Character> arbol, Character K) {
 		List<String> res = new ArrayList<>();
 		casoRecursivoBT(arbol, K, "", res);
 		return res;
@@ -67,46 +66,49 @@ public class Ejercicio3 {
 
 	private static void casoRecursivoBT(BinaryTree<Character> arbol, Character K, String ac, List<String> res) {
 		switch (arbol) {
-		case BEmpty<Character> t: break;
-		case BLeaf<Character> t : if (!t.label().equals(K)) {
-			ac = ac + t.label();
-			res.add(ac);
-		};
+		case BEmpty<Character> t:
+			break;
+		case BLeaf<Character> t:
+			if (!t.label().equals(K)) {
+				ac = ac + t.label();
+				res.add(ac);
+			}
+		;
 		break;
-		
-		case BTree<Character> t : 
+
+		case BTree<Character> t:
 			if (!t.label().equals(K)) {
 				ac = ac + t.label();
 				casoRecursivoBT(t.left(), K, ac, res);
 				casoRecursivoBT(t.right(), K, ac, res);
-				
+
 			}
+		break;
+		default:
 			break;
-		default: break;
 		}
-	
-		
-		 
 
 	}
+
 	private static void cargaDatosBT() {
 		Consumer<String> cnsmr = x -> {
 			String[] y = x.split("#");
-			BinaryTree<Character> bt =  BinaryTree.parse(y[0],  s-> s.charAt(0));
-			
-			System.out.println("Arbol: "+ bt);
-			System.out.println("Caracter: " +y[1]);
+			BinaryTree<Character> bt = BinaryTree.parse(y[0], s -> s.charAt(0));
+
+			System.out.println("Arbol: " + bt);
+			System.out.println("Caracter: " + y[1]);
 			System.out.println(caminosSinCaracterBinario(bt, y[1].charAt(0)));
 		};
 		Files2.streamFromFile("ficheros/Ejercicio3DatosEntradaBinario.txt").forEach(cnsmr);
 	}
+
 	private static void cargaDatosNario() {
 		Consumer<String> cnsmr = x -> {
 			String[] y = x.split("#");
-			Tree<Character> bt =  Tree.parse(y[0],  s-> s.charAt(0));
-			
-			System.out.println("Arbol: "+bt);
-			System.out.println("Caracter: " +y[1]);
+			Tree<Character> bt = Tree.parse(y[0], s -> s.charAt(0));
+
+			System.out.println("Arbol: " + bt);
+			System.out.println("Caracter: " + y[1]);
 			System.out.println(caminosSinCaracterNArio(bt, y[1].charAt(0)));
 		};
 		Files2.streamFromFile("ficheros/Ejercicio3DatosEntradaNario.txt").forEach(cnsmr);

@@ -8,68 +8,53 @@ import us.lsi.common.Pair;
 
 public class Ejercicio1 {
 
-	
-	// version double recursiva 
+	// version double recursiva
 	public static Double facRdouble(Integer n) {
 		Double r = null;
 		if (n == 0 || n == 1) {
-			r =  (double) 1;
+			r = (double) 1;
+		} else {
+			r = n * facRdouble(n - 1);
 		}
-		else {
-			r = n * facRdouble(n-1);
-		}
-		return r; 
+		return r;
 	}
-	
-	
+
 //	 version double iteratva
-	
+
 	public static Double facIterDouble(Integer n) {
 		Double ac = (double) 1;
-		for(Double i = (double) 1;i<= n; i++ ) {
-			ac = ac*i;
+		for (Double i = (double) 1; i <= n; i++) {
+			ac = ac * i;
 		}
 		return ac;
-		
-	}
-	
 
-	
-	// version bigInt  recursiv
+	}
+
+	// version bigInt recursiv
 	public static BigInteger facRBigInteger(Integer n) {
 		BigInteger r = null;
-		if ( n == 1 ) {
-			r =  BigInteger.ONE;
+		if (n == 1) {
+			r = BigInteger.ONE;
+		} else {
+
+			r = facRBigInteger(n - 1).multiply(BigInteger.valueOf(n));
 		}
-		else {
-			
-			r = facRBigInteger(n-1).multiply(BigInteger.valueOf(n));
-		}
-		return r; 
+		return r;
 	}
-	
-	// versión big int   iterativa 
-//	public static BigInteger facIterBigInt(Integer n) {
-//		BigInteger ac = BigInteger.ONE;
-//		for(BigInteger i  =  BigInteger.ONE;i.compareTo(n)<= 0; i.add(BigInteger.ONE) ) {
-//			ac = ac.multiply(i);
-//		}
-//		return ac;
-//		
-//	}
-    public static BigInteger facIterBigInteger(Integer N)
-    {
-        BigInteger f = new BigInteger("1");
-        for (int i = 2; i <= N; i++)
-            f = f.multiply(BigInteger.valueOf(i));
-        return f;
-    }
-	
+
+
+	public static BigInteger facIterBigInteger(Integer N) {
+		BigInteger f = new BigInteger("1");
+		for (int i = 2; i <= N; i++)
+			f = f.multiply(BigInteger.valueOf(i));
+		return f;
+	}
+
 	public static void main(String[] args) {
-		System.out.println("Recursivo double" +facRdouble(14));
-		System.out.println("Iterativo double" +facIterDouble(14));
-		System.out.println("Iterativo Big Integer" +facIterBigInteger(14));
-		System.out.println("RecursivoBig Integer" +facRBigInteger(14));
+		System.out.println("Recursivo double" + facRdouble(14));
+		System.out.println("Iterativo double" + facIterDouble(14));
+		System.out.println("Iterativo Big Integer" + facIterBigInteger(14));
+		System.out.println("RecursivoBig Integer" + facRBigInteger(14));
 	}
 //	// verisón long recursiva
 //	
@@ -94,7 +79,15 @@ public class Ejercicio1 {
 //		return ac;
 //		
 //	}
+//		// versión big int iterativa
+//	public static BigInteger facIterBigInt(Integer n) {
+//	BigInteger ac = BigInteger.ONE;
+//	for(BigInteger i  =  BigInteger.ONE;i.compareTo(n)<= 0; i.add(BigInteger.ONE) ) {
+//		ac = ac.multiply(i);
+//	}
+//	return ac;
 //	
+//}
 //	
 //	// versión long funcional 
 //	
@@ -107,7 +100,7 @@ public class Ejercicio1 {
 //		Pair<Long, Long> seed = Pair.of(0L, 1L);
 //		return Stream.iterate(seed, next).dropWhile(y -> y.first()<n).findFirst().get().second();
 //	}
-	
+
 //	// version double funcional 
 //	
 //	public static Double facFuncDouble(Double n) {
