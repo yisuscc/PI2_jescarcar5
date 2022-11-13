@@ -75,7 +75,7 @@ public static Boolean ej4NarioV1 (Tree<String> nt) {
 		
 	}
 	private static Boolean casoRecursivoNarioV1(Tree<String> nt) {
-		Boolean res = false;
+		Boolean res = true;
 		switch(nt) {
 		case TEmpty<String> t: break; // rompemos directamente
 		case TLeaf<String> t: break; // rompemos directamente
@@ -106,7 +106,7 @@ public static Boolean ej4NarioV1 (Tree<String> nt) {
 		case BLeaf<String> t: res = cuentavocales(t.label());
 		break;
 		case BTree<String> t: // comprueba sus vocales y devuelvelas sulyas mas la sum de sus hijos
-
+			
 			res = cuentavocales(t.label()) + nVocalesBT(t.left())+nVocalesBT(t.right()) ;
 		break;
 		}
@@ -162,14 +162,14 @@ public static Boolean ej4NarioV1 (Tree<String> nt) {
 			Tree<String> bt =  Tree.parse(x);
 			
 			System.out.println("Arbol: "+bt);
-			
+			System.out.println("N vocales" +nVocales(bt));
 			System.out.println(ej4NarioV1(bt));
 		};
 		Files2.streamFromFile("ficheros/Ejercicio4DatosEntradaNario.txt").forEach(cnsmr);
 	}
 	public static void main(String[] args) {
-		cargaDatosBT();	
-		//cargaDatosNario();
+		//cargaDatosBT();	
+		cargaDatosNario();
 
 	}
 
